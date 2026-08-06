@@ -1,5 +1,15 @@
-from telegram import enviar_mensaje
+import requests
+from config import BASE_URL
 
-print("Iniciando monitor de citas...")
+print("Buscando citas de Extranjería...")
 
-enviar_mensaje("✅ El bot de Citas Extranjería está funcionando correctamente.")
+try:
+    respuesta = requests.get(BASE_URL, timeout=20)
+
+    if respuesta.status_code == 200:
+        print("Página de Extranjería disponible.")
+    else:
+        print(f"Error: {respuesta.status_code}")
+
+except Exception as e:
+    print("No se pudo conectar:", e)
